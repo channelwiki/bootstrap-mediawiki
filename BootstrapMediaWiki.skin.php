@@ -85,28 +85,28 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 		$this->html('headelement');
 		?>
 		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
 				<div class="container">
-					<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				    <div class="navbar-header">
+					<!-- .navbar-btn is used as the toggle for collapsed navbar content -->
+					<a class="btn navbar-btn" data-toggle="collapse" data-target=".nav-collapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="<?php echo $this->data['nav_urls']['mainpage']['href'] ?>" title="<?php echo $wgSitename ?>"><?php echo isset( $wgLogo ) && $wgLogo ? "<img src='{$wgLogo}' alt='Logo'/> " : ''; echo $wgSitenameshort ?: $wgSitename; ?></a>
-
+					<a class="navbar-brand" href="<?php echo $this->data['nav_urls']['mainpage']['href'] ?>" title="<?php echo $wgSitename ?>"><?php echo isset( $wgLogo ) && $wgLogo ? "<img src='{$wgLogo}' alt='Logo'/> " : ''; echo $wgSitenameshort ?: $wgSitename; ?></a>
+				    </div>
 					<div class="nav-collapse">
-						<ul class="nav">
+						<ul class="nav navbar-nav">
 							<li>
 							<a href="<?php echo $this->data['nav_urls']['mainpage']['href'] ?>">Home</a>
 							</li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
 								<ul class="dropdown-menu">
-									<li><a href="<?php echo $url_prefix; ?>Special:RecentChanges" class="recent-changes"><i class="icon-edit"></i> Recent Changes</a></li>
-									<li><a href="<?php echo $url_prefix; ?>Special:SpecialPages" class="special-pages"><i class="icon-star-empty"></i> Special Pages</a></li>
+									<li><a href="<?php echo $url_prefix; ?>Special:RecentChanges" class="recent-changes"><i class="glyphicon glyphicon-edit"></i> Recent Changes</a></li>
+									<li><a href="<?php echo $url_prefix; ?>Special:SpecialPages" class="special-pages"><i class="glyphicon glyphicon-star-empty"></i> Special Pages</a></li>
 									<?php if ( $wgEnableUploads ) { ?>
-									<li><a href="<?php echo $url_prefix; ?>Special:Upload" class="upload-a-file"><i class="icon-upload"></i> Upload a File</a></li>
+									<li><a href="<?php echo $url_prefix; ?>Special:Upload" class="upload-a-file"><i class="glyphicon glyphicon-upload"></i> Upload a File</a></li>
 									<?php } ?>
 								</ul>
 							</li>
@@ -149,7 +149,6 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 						</div>
 					</form>
 				</div>
-			</div>
 		</div><!-- topbar -->
 		<?php
 		if( $subnav_links = $this->get_page_links('Bootstrap:Subnav') ) {
@@ -183,8 +182,8 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 					if ( 'sidebar' == $wgTOCLocation ) {
 						?>
 						<div class="row">
-							<section class="span3 toc-sidebar"></section>
-							<section class="span9 wiki-body-section">
+							<section class="col-md-3 toc-sidebar"></section>
+							<section class="col-md-9 wiki-body-section">
 						<?php
 					}//end if
 				?>
@@ -427,7 +426,7 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 				case 'Watch': $icon = 'eye-open'; break;
 				}//end switch
 
-				$link['title'] = '<i class="icon-' . $icon . '"></i> ' . $link['title'];
+				$link['title'] = '<i class="glyphicon glyphicon-' . $icon . '"></i> ' . $link['title'];
 			} elseif( 'user' == $which ) {
 				switch( $link['title'] ) {
 				case 'My talk': $icon = 'comment'; break;
@@ -438,7 +437,7 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 				default: $icon = 'user'; break;
 				}//end switch
 
-				$link['title'] = '<i class="icon-' . $icon . '"></i> ' . $link['title'];
+				$link['title'] = '<i class="glyphicon glyphicon-' . $icon . '"></i> ' . $link['title'];
 			}//end elseif
 
 			$nav[0]['sublinks'][] = $link;

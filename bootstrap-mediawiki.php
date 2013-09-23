@@ -4,7 +4,7 @@
  *
  * @bootstrap-mediawiki.php
  * @ingroup Skins
- * @author Matthew Batchelder (http://borkweb.com)
+ * @author Matthew Batchelder, Jack Rosenthal
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  */
 
