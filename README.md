@@ -1,12 +1,12 @@
-# Bootstrap Mediawiki
+# Bootstrap 3.0 for MediaWiki
 
-This is a MediaWiki skin that uses Bootstrap 2 from Twitter!  The framework gives a boatload of features that play really nicely with a MediaWiki installation.  To get up and rolling, there's a few things that should be done.
+This is a MediaWiki skin that uses Twitter Bootstrap 3.0! The framework gives a boatload of features that play really nicely with a MediaWiki installation. To get up and rolling, there's a few things that should be done.
 
 ## Installation
 First, clone the repository into your `skins/` directory.
 
 ````
-git clone https://github.com/borkweb/bootstrap-mediawiki.git
+git clone https://github.com/jellybellys/bootstrap-mediawiki.git
 ````
 
 Next, in `LocalSettings.php` set:
@@ -24,20 +24,16 @@ require_once( "$IP/skins/bootstrap-mediawiki/bootstrap-mediawiki.php" );
 ## Setup
 Once you've enabled the skin, you'll want to create a few pages.
 
-### Customization Vars
-
-`$wgTOCLocation = 'sidebar';` - moves the TOC to a sidebar.
-
 ### Create: Bootstrap:Footer
-This MediaWiki page will contain what appears in your footer.  I've set mine to the following:
+This MediaWiki page will contain what appears in your footer. Here is an example of what to put in it:
 
 	<div class="row">
-		<div class="span6">
+		<div class="col-md-6">
 			=== Stuff ===
 			* [[Link to some place]]
 			* [[Another link]]
 		</div>
-		<div class="span6">
+		<div class="col-md-6">
 			=== More Stuff ===
 			* [http://external.resource.org Go here]
 		</div>
@@ -56,6 +52,7 @@ This MediaWiki page will control the links that appear in the Bootstrap navbar a
 	** [[OMG hai]]
 	* [[A Link Menu]]
 
+If you created a submenu in the older Bootstrap 2.x theme from BorkWeb, it will automagically be merged into the titlebar.
 
 ### Create: Template:Alert
 This template is used to leverage Bootstrap's alert box:
@@ -87,6 +84,9 @@ This template is used to do Bootstrap popovers!
 Usage:
 
 	{{pop|Whatever triggers the popover|Popover Title|Popover Content}}
+
+### Create: Bootstrap:Jumbotron
+The content of this page will be put on your home page under "Welcome to WikiNameHere!"
 
 ### Short Title
 If you want a shorter title to appear in your navbar, you can add <code>$wgSitenameshort = 'Short Name';</code> to your LocalSettings.php file.
