@@ -84,56 +84,68 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 
 		$this->html('headelement');
 		?>
-		<div class="navbar navbar-fixed-top">
+		<div class="navbar navbar-inverse navbar-fixed-top">
 				<div class="container">
 				    <div class="navbar-header">
-					<!-- .navbar-btn is used as the toggle for collapsed navbar content -->
-					<a class="btn navbar-btn" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
+					<!-- fixed for bootstrap 3.0, toggles navigation on smaller displays -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          				  <span class="icon-bar"></span>
+           				  <span class="icon-bar"></span>
+          				  <span class="icon-bar"></span>
+         				</button>
 					<a class="navbar-brand" href="<?php echo $this->data['nav_urls']['mainpage']['href'] ?>" title="<?php echo $wgSitename ?>"><?php echo isset( $wgLogo ) && $wgLogo ? "<img src='{$wgLogo}' alt='Logo'/> " : ''; echo $wgSitenameshort ?: $wgSitename; ?></a>
 				    </div>
-					<div class="nav-collapse">
+					<div class="navbar-collapse collapse">
 						<ul class="nav navbar-nav">
+						<?php if( $subnav_links = $this->get_page_links('Bootstrap:Subnav') ) { ?>
 							<li>
-							<a href="<?php echo $this->data['nav_urls']['mainpage']['href'] ?>">Home</a>
+							<?php
+								$subnav_select = $this->nav_select( $subnav_links );
+								if ( trim( $subnav_select ) ) {
+								?>
+								<select id="subnav-select">
+							<?php echo $subnav_select; ?>
+								</select>
+							<?php
+								}//end if
+							?>
 							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a href="<?php echo $url_prefix; ?>Special:RecentChanges" class="recent-changes"><i class="glyphicon glyphicon-edit"></i> Recent Changes</a></li>
-									<li><a href="<?php echo $url_prefix; ?>Special:SpecialPages" class="special-pages"><i class="glyphicon glyphicon-star-empty"></i> Special Pages</a></li>
-									<?php if ( $wgEnableUploads ) { ?>
-									<li><a href="<?php echo $url_prefix; ?>Special:Upload" class="upload-a-file"><i class="glyphicon glyphicon-upload"></i> Upload a File</a></li>
-									<?php } ?>
-								</ul>
-							</li>
+								<?php echo $this->nav( $subnav_links ); ?>
+							<?php
+								}//end if
+							?>
+							
 							<?php echo $this->nav( $this->get_page_links( 'Bootstrap:TitleBar' ) ); ?>
 						</ul>
+					<form class="navbar-form navbar-right" action="<?php $this->text( 'wgScript' ) ?>" id="searchform">
+						<div class="form-group">
+							<input type="text" name="search" id="searchInput" autocomplete="off" class="form-control">
+						</div>
+						<input type="hidden" name="title" value="Special:Search">
+						<button type="submit" class="btn btn-success">Search</button>
+					</form>
 					<?php
 					if ( $wgUser->isLoggedIn() ) {
 						if ( count( $this->data['personal_urls'] ) > 0 ) {
-							$user_icon = '<span class="user-icon"><img src="https://secure.gravatar.com/avatar/'.md5(strtolower( $wgUser->getName()) . '@plymouth.edu').'.jpg?s=20&r=g"/></span>';
+							$user_icon = '<span class="user-icon"><img src="https://secure.gravatar.com/avatar/'.md5(strtolower( $wgUser->getEmail())).'.jpg?s=20&r=g"/></span>';
 							$name = strtolower( $wgUser->getName() );
-							$user_nav = $this->get_array_links( $this->data['personal_urls'], $user_icon . $name, 'user' );
+							$user_nav = $this->get_array_links( $this->data['personal_urls'], "<i class='icon-user'></i>", 'user' );
 							?>
-							<ul<?php $this->html('userlangattributes') ?> class="nav pull-right">
+							<ul<?php $this->html('userlangattributes') ?> class="nav navbar-nav navbar-right">
 								<?php echo $user_nav; ?>
 							</ul>
 							<?php
 						}//end if
 
 						if ( count( $this->data['content_actions']) > 0 ) {
-							$content_nav = $this->get_array_links( $this->data['content_actions'], 'Page', 'page' );
+							$content_nav = $this->get_array_links( $this->data['content_actions'], "<i class='icon-file-text'></i>", 'page' );
 							?>
-							<ul class="nav pull-right content-actions"><?php echo $content_nav; ?></ul>
+							<ul class="nav navbar-nav navbar-right content-actions"><?php echo $content_nav; ?></ul>
 							<?php
 						}//end if
 					} else {  // else if is logged in
 						?>
-						<ul class="nav pull-right">
+						<ul class="nav navbar-nav navbar-right">
 							<li>
 							<?php echo Linker::linkKnown( SpecialPage::getTitleFor( 'Userlogin' ), wfMsg( 'login' ) ); ?>
 							</li>
@@ -141,49 +153,39 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 						<?php
 					}
 					?>
+				<ul class="nav navbar-nav navbar-right" style="margin-right:0px">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-wrench"></i></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo $url_prefix; ?>Special:RecentChanges" class="recent-changes"><i class="icon-edit"></i> Recent Changes</a></li>
+							<li><a href="<?php echo $url_prefix; ?>Special:SpecialPages" class="special-pages"><i class="icon-star-empty"></i> Special Pages</a></li>
+							<?php if ( $wgEnableUploads ) { ?>
+							<li><a href="<?php echo $url_prefix; ?>Special:Upload" class="upload-a-file"><i class="icon-upload"></i> Upload a File</a></li>
+							<?php } ?>
+						</ul>
+					</li>
+				</ul>
+
 					</div>
-					<form class="navbar-search pull-right" action="<?php $this->text( 'wgScript' ) ?>" id="searchform">
-						<div>
-							<input type="search" name="search" placeholder="Search" title="Search <?php echo $wgSitename; ?> [ctrl-option-f]" accesskey="f" id="searchInput" autocomplete="off">
-							<input type="hidden" name="title" value="Special:Search">
-						</div>
-					</form>
 				</div>
 		</div><!-- topbar -->
-		<?php
-		if( $subnav_links = $this->get_page_links('Bootstrap:Subnav') ) {
-			?>
-			<div class="subnav subnav-fixed">
-				<div class="container">
-					<?php
 
-					$subnav_select = $this->nav_select( $subnav_links );
-
-					if ( trim( $subnav_select ) ) {
-
-						?>
-						<select id="subnav-select">
-						<?php echo $subnav_select; ?>
-						</select>
-						<?php
-					}//end if
-					?>
-					<ul class="nav nav-pills">
-					<?php echo $this->nav( $subnav_links ); ?>
-					</ul>
-				</div>
-			</div>
-			<?php
-		}//end if
-		?>
 		<div id="wiki-outer-body">
+			<?php if(stristr($_SERVER["REQUEST_URI"], "Main_Page")) { ?>
+				<div class="jumbotron">
+					<div class="container">
+						<h1>Welcome to <?php echo $wgSitename; ?>!</h1>
+						<p><?php $this->includePage('Bootstrap:Jumbotron') ?></p>
+					</div>
+				</div>
+			<?php } ?>
 			<div id="wiki-body" class="container">
 				<?php
-					if ( 'sidebar' == $wgTOCLocation ) {
+					if ( 'sidebar-testing' == $wgTOCLocation ) {
 						?>
 						<div class="row">
-							<section class="col-md-3 toc-sidebar"></section>
-							<section class="col-md-9 wiki-body-section">
+							<div class="col-md-3 bs-sidebar hidden-print affix-top toc-sidebar"></div>
+							<div class="col-md-9 wiki-body-section">
 						<?php
 					}//end if
 				?>
@@ -224,7 +226,7 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 				<?php
 					if ( 'sidebar' == $wgTOCLocation ) {
 						?>
-						</section></section>
+						</div></div>
 						<?php
 					}//end if
 				?>
@@ -233,11 +235,6 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 		<div class="bottom">
 			<div class="container">
 				<?php $this->includePage('Bootstrap:Footer'); ?>
-				<footer>
-					<p>&copy; <?php echo date('Y'); ?> by <a href="<?php echo (isset($wgCopyrightLink) ? $wgCopyrightLink : 'http://borkweb.com'); ?>"><?php echo (isset($wgCopyright) ? $wgCopyright : 'BorkWeb'); ?></a> 
-						&bull; Powered by <a href="http://mediawiki.org">MediaWiki</a> 
-					</p>
-				</footer>
 			</div><!-- container -->
 		</div><!-- bottom -->
 
@@ -426,24 +423,24 @@ class BootstrapMediaWikiTemplate extends QuickTemplate {
 				case 'Watch': $icon = 'eye-open'; break;
 				}//end switch
 
-				$link['title'] = '<i class="glyphicon glyphicon-' . $icon . '"></i> ' . $link['title'];
+				$link['title'] = '<i class="icon-' . $icon . '"></i> ' . $link['title'];
 			} elseif( 'user' == $which ) {
 				switch( $link['title'] ) {
-				case 'My talk': $icon = 'comment'; break;
-				case 'My preferences': $icon = 'cog'; break;
-				case 'My watchlist': $icon = 'eye-close'; break;
-				case 'My contributions': $icon = 'list-alt'; break;
-				case 'Log out': $icon = 'off'; break;
-				default: $icon = 'user'; break;
+				case 'Talk': $icon = 'comment'; break;
+				case 'Preferences': $icon = 'gears'; break;
+				case 'Watchlist': $icon = 'eye-close'; break;
+				case 'Contributions': $icon = 'list-alt'; break;
+				case 'Log out': $icon = 'lock'; break;
+				default: $icon = 'male'; break;
 				}//end switch
 
-				$link['title'] = '<i class="glyphicon glyphicon-' . $icon . '"></i> ' . $link['title'];
+				$link['title'] = '<i class="icon-' . $icon . '"></i> ' . $link['title'];
 			}//end elseif
 
 			$nav[0]['sublinks'][] = $link;
 		}//end foreach
 
-		return $this->nav( $nav );
+		return str_replace("caret", "", $this->nav( $nav ));
 	}//end get_array_links
 
 	function getPageRawText($title) {

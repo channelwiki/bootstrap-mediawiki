@@ -30,7 +30,7 @@ $(function() {
 		});
 
 	$('pre').addClass('prettyprint linenums');
-	$('.hero-unit pre').removeClass('prettyprint linenums');
+	$('.jumbotron pre').removeClass('prettyprint linenums');
 
 	$('.editButtons').addClass('well');
 	$('input[type=submit],input[type=button],input[type=reset]').addClass('btn');
@@ -55,9 +55,8 @@ $(function() {
 	if ( $('.toc-sidebar').length > 0 ) {
 		if ( 0 === $('#toc').length ) {
 			$('.toc-sidebar').remove();
-			$('.wiki-body-section').removeClass('span9').addClass('span12');
+			$('.wiki-body-section').removeClass('col-md-9').addClass('col-md-12');
 		} else {
-			$('.toc-sidebar').append('<h3>Contents</h3>');
 			$('#toc').each(function() {
 				$(this).find('ul:first').appendTo( '.toc-sidebar' );
 				$(this).remove();
@@ -70,6 +69,8 @@ $(function() {
 			var $toc = $(this);
 			var $title = $toc.find('#toctitle');
 			var $links = $title.siblings('ul');
+			var $tocul = $toc.closest('ul');
+			$toc.closest('ul').addClass('nav bs-sidenav');
 
 			$('.page-header').prepend('<ul class="nav nav-pills pull-right"><li class="dropdown" id="page-contents"><a class="dropdown-toggle" href="#"><i class="icon-list"></i> Contents <b class="caret"></b></a> <ul class="dropdown-menu"></ul></li></ul>');
 
@@ -97,6 +98,9 @@ $(function() {
 	}//end if
 
 	prettyPrint();
+
+	var $tableofcontents = document.getElementById( "toc" );
+	closest('ul', $tableofcontents).addClass('nav bs-sidenav');
 
 	$('#wiki-body .body a[title="Special:UserLogin"]').click();
 	$('.dropdown-toggle').dropdown();

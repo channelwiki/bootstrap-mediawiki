@@ -1,10 +1,10 @@
 body {
-	background-color: #fff;
+	/*background-color: #fff;
 	background-image: url(images/wiki-bg.jpg);
 	background-repeat: repeat-x;
 	background-position: center 80px;
-	color: #222;
-	padding-top: 100px;
+	color: #222;*/
+	padding-top: 50px;
 }
 
 body.page-Main_Page .page-header,
@@ -46,7 +46,7 @@ p {
 	max-height: 30px;
 }
 
-.navbar input {
+/*.navbar input {
 	background-color: #555;
 	border-color: #111;
 	color: #aaa;
@@ -55,7 +55,7 @@ p {
 
 .navbar .navbar-inner .btn {
 	margin-top: 0;
-}
+}*/
 
 .editsection {
 	float: right;
@@ -104,18 +104,18 @@ option.unclickable {
 }
 
 .nav .user-icon {
-	border: 1px solid rgba( 55, 55, 55, 0.1 );
+	/*border: 1px solid rgba( 55, 55, 55, 0.1 );*/
 	display: inline-block;
-	margin-right: 0.5em;
+	/*margin-right: 0.5em;*/
 	vertical-align: middle;
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 }
 
 .nav .user-icon img {
-	border: 1px solid rgba( 0, 0, 0, 0.5 );
-	width: 20px;
-	height: 20px;
+	/*border: 1px solid rgba( 0, 0, 0, 0.5 );*/
+	width: 18px;
+	height: 18px;
 }
 
 #wiki-body h2 {
@@ -301,7 +301,7 @@ img.thumbborder {
 	vertical-align: middle;
 }
 
-.navbar-fixed-top .navbar-inner {
+/*.navbar-fixed-top .navbar-inner {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
@@ -311,10 +311,10 @@ img.thumbborder {
 	background-color: #f5f5f5;
 	border-color: #ccc;
 	color: #333;
-}
+}*/
 
 /* Subnav */
-.subnav {
+/*.subnav {
 	background: #eee;
 	border-bottom: 1px solid #f5f5f5;
   width: 100%;
@@ -329,7 +329,7 @@ img.thumbborder {
 	-moz-border-radius: 0;
 	border-radius: 0;
 	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
+}*/
 
 @media (max-width: 767px) {
 	body {
@@ -355,11 +355,11 @@ img.thumbborder {
 	}
 }
 
-.subnav .container .nav {
+/*.subnav .container .nav {
   margin-bottom: 0;
-}
+}*/
 
-.subnav .nav > li > a {
+/*.subnav .nav > li > a {
 	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.1);
 	text-decoration: none;
 	color: #333;
@@ -417,7 +417,7 @@ img.thumbborder {
 	color: #333;
 	background-color: #ddd;
 	border-color: #ddd;
-}
+}*/
 
 pre.linenums ol {
 	margin-bottom: 0;
@@ -455,7 +455,7 @@ pre.linenums ol {
   }
 }
 
-@media (max-width: 979px) {
+/*@media (max-width: 979px) {
 	body { padding-top: 0px; }
 
 	.subnav #subnav-select {
@@ -483,7 +483,7 @@ pre.linenums ol {
 	.navbar-inner {
 		padding-bottom: 0;
 	}
-}
+}*/
 
 /* responsive */
 @media (max-width: 480px) {
